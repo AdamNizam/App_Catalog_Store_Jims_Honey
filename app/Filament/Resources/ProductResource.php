@@ -116,7 +116,8 @@ class ProductResource extends Resource
                 TextColumn::make('brand.name'),
 
                 TextColumn::make('price')
-                ->prefix('Rp.'),
+                ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))
+                ->prefix('Rp'),
 
 
                 TextColumn::make('stock'),
@@ -145,7 +146,6 @@ class ProductResource extends Resource
             ])
             ->actions([
                 ViewAction::make('view')
-                    ->label('Detail')
             ])            
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

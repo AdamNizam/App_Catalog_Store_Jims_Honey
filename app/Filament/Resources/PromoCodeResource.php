@@ -44,13 +44,14 @@ class PromoCodeResource extends Resource
             ->columns([
 
                 TextColumn::make('code')
-                ->searchable(),
+                ->searchable()
+                ->label('Code Promo'),
                 
                 TextColumn::make('discount_amount')
                 ->label('Jumlah Harga Promo')
-                ->prefix('Rp.')
-                ->color('danger'),
-
+                ->prefix('Rp')
+                ->color('danger')
+                ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.')),
                 
             ])
             ->filters([

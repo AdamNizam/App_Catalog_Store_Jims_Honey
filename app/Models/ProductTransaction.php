@@ -31,7 +31,7 @@ class ProductTransaction extends Model
 
     ];
 
-    public function generateUniqueTrxId(){
+    public static function generateUniqueTrxId(){
 
         $prefix = 'JSHNY';
         do {

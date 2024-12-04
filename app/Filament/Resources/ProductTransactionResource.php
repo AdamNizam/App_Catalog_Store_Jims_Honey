@@ -132,7 +132,6 @@ class ProductTransactionResource extends Resource
                             ->prefix('Rp'),
 
                             TextInput::make('discount_amount')
-                            // ->readOnly()
                             ->required()
                             ->numeric()
                             ->prefix('Rp')
@@ -194,8 +193,7 @@ class ProductTransactionResource extends Resource
                             false => 'heroicon-o-clock'
                         ]),
 
-
-                    ]),
+                    ])
                     
                 ])
                 ->columnSpan('full')
@@ -242,13 +240,18 @@ class ProductTransactionResource extends Resource
                 ->label('Jumlah'),
                 TextColumn::make('sub_total_amount')
                 ->color('primary')
-                ->prefix('Rp.'),
+                ->prefix('Rp')    
+                ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.')),
+
                 TextColumn::make('discount_amount')
                 ->color('danger')
-                ->prefix('- Rp.'),
+                ->prefix('- Rp')
+                ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.')),
+
                 TextColumn::make('grand_total_amount')
                 ->color('success')
-                ->prefix('Rp.'),
+                ->prefix('Rp')
+                ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.')),
               
                 IconColumn::make('is_paid')
                 ->boolean()
