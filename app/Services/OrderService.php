@@ -49,10 +49,10 @@ class OrderService{
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
         $subTotalAmount = $product->price * $quantity;
 
-        $taxtRate = 0.11;
+        $taxtRate = 0;
         $totalTaxt = $subTotalAmount * $taxtRate;
 
-        $grandTotalAmount = $subTotalAmount * $taxtRate;
+        $grandTotalAmount = $subTotalAmount + $totalTaxt - ($orderData['discount'] ?? 0) ;
 
         $orderData['sub_total_amount'] = $subTotalAmount;
         $orderData['total_tax'] = $totalTaxt;
