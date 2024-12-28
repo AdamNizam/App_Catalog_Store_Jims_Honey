@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Services\FrontService;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+
 
 class FrontController extends Controller
 {
@@ -33,6 +36,20 @@ class FrontController extends Controller
     public function category(Category $category) {
 
         return view('front.category', compact('category'));
+        
+    }
+
+    public function search(Request $request) {
+
+        $keyword = $request->input('keyword');
+
+        $products = $this->frontService->searchProducts($keyword);
+
+        return view('front.search', [
+            'products' => $products,
+            'keyword' => $keyword
+
+        ]);
         
     }
 

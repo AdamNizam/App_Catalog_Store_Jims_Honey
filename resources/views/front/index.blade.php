@@ -6,6 +6,7 @@
         <link href="{{asset('output.css')}}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <title>jimshoneyswangan</title>
     </head>
     <body>
         <div class="relative flex flex-col w-full max-w-[640px] min-h-screen gap-5 mx-auto bg-[#F5F5F0]">
@@ -15,15 +16,17 @@
                     <img src="assets/images/icons/notification.svg" class="w-10 h-10" alt="icon">
                 </a>
             </div>
-            <form class="flex justify-between items-center mx-4">
+            
+            <form action="{{ route('front.search')}}" class="flex justify-between items-center mx-4">
                 <div class="relative flex items-center w-full rounded-l-full px-[14px] gap-[10px] bg-white transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFC700]">
                     <img src="assets/images/icons/search-normal.svg" class="w-6 h-6" alt="icon">
-                    <input type="text" class="w-full py-[14px] appearance-none bg-white outline-none font-semibold placeholder:font-normal placeholder:text-[#878785]" placeholder="Search product...">
+                    <input type="text" name="keyword" class="w-full py-[14px] appearance-none bg-white outline-none font-semibold placeholder:font-normal placeholder:text-[#878785]" placeholder="Search product...">
                 </div>
                 <button type="submit" class="h-full rounded-r-full py-[14px] px-5 bg-[#C5F277]">
                     <span class="font-semibold">Explore</span>
                 </button>
             </form>
+            
             <section id="category" class="flex flex-col gap-4 px-4">
                 <div class="flex items-center justify-between">
                     <h2 class="font-bold leading-[20px]">Our Featured <br>Categories</h2>
@@ -147,13 +150,13 @@
                                 <span class="font-bold text-sm leading-[21px]">Browse</span>
                             </div>
                         </a>
-                        <a href="check-booking.html" class="mx-auto w-full">
+                        <a href="{{ route('front.check_booking') }}" class="mx-auto w-full">
                             <img src="assets/images/icons/bag-2-white.svg" class="w-6 h-6" alt="icon">
                         </a>
                         <a href="#" class="mx-auto w-full">
                             <img src="assets/images/icons/star-white.svg" class="w-6 h-6" alt="icon">
                         </a>
-                        <a href="#" class="mx-auto w-full">
+                        <a  href="https://wa.me/6287709208646?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Anda" target="_blank"class="mx-auto w-full">
                             <img src="assets/images/icons/cs_white.svg" class="w-6 h-6" alt="icon">
                         </a>
                     </div>

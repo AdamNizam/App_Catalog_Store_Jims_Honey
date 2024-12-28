@@ -13,11 +13,9 @@
                 <p class="font-semibold text-lg leading-[27px]">
                     Rp {{number_format($product->price, 0, ',', '.')}} • Size: {{ $orderData['product_size']}}
                 </p>
-                <p class="font-semibold" style="font-size: 14px; color:#ffbe33;">Stock : {{ $product->stock }}</p>
             </div>
             <div class="flex items-center gap-1">
-                <img src="{{ asset('assets//images/icons/Star 1.svg') }}" class="w-[26px] h-[26px]" alt="star">
-                <span class="font-semibold text-xl leading-[30px]">4.5</span>
+                <span class="font-semibold text-xl leading-[30px]">Stock : {{ $product->stock }}</span>
             </div>
         </div>
 

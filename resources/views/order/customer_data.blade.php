@@ -9,7 +9,7 @@
     <body>
         <div class="relative flex flex-col w-full max-w-[640px] min-h-screen gap-5 mx-auto bg-[#F5F5F0]">
             <div id="top-bar" class="flex justify-between items-center px-4 mt-[60px]">
-                <a href="{{ route('front.index') }}">
+                <a href="{{ route('front.booking') }}">
                     <img src="{{ asset('assets/images/icons/back.svg') }}" class="w-10 h-10" alt="icon">
                 </a>
                 <p class="font-bold text-lg leading-[27px]">Delivery</p>
@@ -32,7 +32,8 @@
                     <span class="font-semibold text-sm leading-[21px]">4.5</span>
                 </div>
             </div>
-            <form action="payment.html" class="flex flex-col gap-5">
+            <form action="{{ route('front.save_customer_data')}}" method="POST" class="flex flex-col gap-5">
+                @csrf
                 <div class="flex flex-col rounded-[20px] p-4 mx-4 pb-5 gap-5 bg-white">
                     <div class="flex items-center justify-between">
                         <div class="flex flex-col">

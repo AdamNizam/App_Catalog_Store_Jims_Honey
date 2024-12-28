@@ -36,9 +36,18 @@ class OrderService{
             'product_size' => $data['product_size'],
             'size_id' => $data['size_id'],
             'product_id' => $data['product_id']
-        ];
+        ]; 
 
         $this->orderRepository->saveToSession($orderData);        
+    }
+
+    public function getMyOrderDetails(array $validated) {
+
+        return $this->orderRepository->finByTrxIdAndPhoneNumber(
+            $validated['booking_trx_id'],
+            $validated['phone']
+        );
+        
     }
 
     public function getOrderDetails(){
@@ -96,6 +105,16 @@ class OrderService{
 
         $orderData = $this->orderRepository->getOrderDataFromSession();
 
+        // Log untuk memastikan data dari session tidak kosong
+        Log::info('Order Data from Session:', $orderData);
+
+        // Jika data dari session kosong, log error dan kembalikan null
+        if (empty($orderData)) {
+            Log::error('Order data is missing from session.');
+            session()->flash('error', 'Order data is missing. Please try again.');
+            return null;
+        }
+
         $productTransactionId = null;
 
         try {
@@ -103,6 +122,7 @@ class OrderService{
 
                 if(isset($validated['proof'])) {
                     $proofPath = $validated['proof']->store('proofs', 'public');
+                    Log::info('Proof uploaded to path:', ['path' => $proofPath]);
                     $validated['proof'] = $proofPath;
                 }
 
@@ -115,16 +135,18 @@ class OrderService{
                 $validated['quantity'] = $orderData ['quantity'];
                 $validated['sub_total_amount'] = $orderData ['sub_total_amount'];
                 $validated['grand_total_amount'] = $orderData ['grand_total_amount'];
-                $validated['discount_amount'] = $orderData ['discount_amount'];
+                $validated['discount_amount'] = $orderData ['total_discount_amount'];
                 $validated['promo_code_id'] = $orderData ['promo_code_id'];
                 $validated['product_id'] = $orderData ['product_id'];
-                $validated['product_size'] = $orderData ['product_size'];
+                $validated['product_size'] = $orderData ['product_id'];
                 $validated['is_paid'] = false;
                 $validated['booking_trx_id'] = ProductTransaction::generateUniqueTrxId();
 
                 $newTransaction = $this->orderRepository->createTransaction($validated);
 
                 $productTransactionId = $newTransaction->id;
+
+                $this->orderRepository->clearSession();
             });
 
         } catch (\Exception $e) {
