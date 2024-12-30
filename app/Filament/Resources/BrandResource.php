@@ -12,6 +12,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use App\Filament\Resources\BrandResource\Pages;
+use Filament\Notifications\Notification;
+
 
 class BrandResource extends Resource
 {
@@ -23,7 +25,7 @@ class BrandResource extends Resource
     {
         return $form
             ->schema([
-                
+
                 TextInput::make('name')
                 ->required()
                 ->maxLength(255),
@@ -31,6 +33,8 @@ class BrandResource extends Resource
                 FileUpload::make('logo')
                 ->image()
                 ->required()
+
+
             ]);
     }
 
@@ -43,7 +47,7 @@ class BrandResource extends Resource
                 ->searchable(),
 
                 ImageColumn::make('logo'),
-                
+
             ])
             ->filters([
                 //
@@ -64,7 +68,6 @@ class BrandResource extends Resource
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [

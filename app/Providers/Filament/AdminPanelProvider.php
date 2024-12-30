@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->databaseNotifications()
             ->brandName('Admin Jims Honey')
             ->login()
             ->colors([

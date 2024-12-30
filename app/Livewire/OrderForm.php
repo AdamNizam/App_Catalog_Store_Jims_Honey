@@ -22,20 +22,20 @@ class OrderForm extends Component
 
     protected $orderService;
 
-    public function boot(OrderService $orderService) 
+    public function boot(OrderService $orderService)
     {
-        $this->orderService = $orderService;        
+        $this->orderService = $orderService;
     }
 
-    public function mount(Product $product, $orderData) 
+    public function mount(Product $product, $orderData)
     {
-        $this->product = $product;   
+        $this->product = $product;
         $this->orderData = $orderData;
-        $this->subTotalAmount = $product->price; 
+        $this->subTotalAmount = $product->price;
         $this->grandTotalAmount = $product->price;
     }
 
-    public function updatedQuantity() 
+    public function updatedQuantity()
     {
         $this->validateOnly('quantity',
         ['quantity' => 'required|integer|min:1|max:'. $this->product->stock],
@@ -44,7 +44,7 @@ class OrderForm extends Component
         $this->calculateTotal();
     }
 
-    public function calculateTotal(): void 
+    public function calculateTotal(): void
     {
         $this->subTotalAmount = $this->product->price * $this->quantity;
         $this->grandTotalAmount = $this->subTotalAmount - $this->discount;
@@ -58,20 +58,20 @@ class OrderForm extends Component
         }
     }
 
-    public function decrementQuantity() 
-    {    
+    public function decrementQuantity()
+    {
         if($this->quantity > 1){
             $this->quantity--;
             $this->calculateTotal();
         }
     }
 
-    public function updatedPromoCode() 
+    public function updatedPromoCode()
     {
-        $this->applyPromoCode();   
+        $this->applyPromoCode();
     }
 
-    public function applyPromoCode() 
+    public function applyPromoCode()
     {
 
         if(!$this->promoCode) {
@@ -91,10 +91,10 @@ class OrderForm extends Component
             $this->promoCodeId = $result['promoCodeId'];
             $this->totalDiscountAmount = $result['discount'];
         }
-        
+
     }
 
-    protected function resetDiscount() 
+    protected function resetDiscount()
     {
         $this->discount = 0;
         $this->calculateTotal();
@@ -102,7 +102,7 @@ class OrderForm extends Component
         $this->totalDiscountAmount = 0;
     }
 
-    public function rules() 
+    public function rules()
     {
         return [
             'name' => 'required|string|max:255',
